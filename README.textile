@@ -13,12 +13,13 @@ If you want to have more explicit rules as to what can be a parent of what, then
 1) copy vendor/plugins/acts_as_containable/lib/container.rb to your own app/models
 2) Add your own custom rules. For example, I added the method:
 
-  #it would be nice to eventually move this config to the ActiveRecord model that
-  #acts_as_containable. Maybe something like this
-  #acts_as_containable :only => [:page, :album]
-  #acts_as_containable :except => [:page]
-  #acts_as_containable :except => :all # Can't parent anything; leaf node.
-  #It may default to allow all
+<pre>
+  # it would be nice to eventually move this config to the ActiveRecord model that
+  # acts_as_containable. Maybe something like this
+  # acts_as_containable :only => [:page, :album]
+  # acts_as_containable :except => [:page]
+  # acts_as_containable :except => :all # Can't parent anything; leaf node.
+  # It may default to allow all
   def can_parent?(record)
     rules = {
       :image => [],
@@ -41,6 +42,7 @@ If you want to have more explicit rules as to what can be a parent of what, then
         include?(class_name)
     end
   end
+</pre>
 
 Example
 =======
