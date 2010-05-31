@@ -1,0 +1,63 @@
+ActsAsContainable
+=================
+
+Created for use with "acts_as_ordered_tree":http://github.com/ramontayag/acts_as_ordered_tree where you may need to put different models as elements in that tree. This is the coded solution given "here":http://stackoverflow.com/questions/2142285/acts-as-tree-with-multiple-models
+
+
+Installation
+============
+ruby script/plugin install http://github.com/ramontayag/acts_as_containable
+
+If you want to have more explicit rules as to what can be a parent of what, then
+
+1) copy vendor/plugins/acts_as_containable/lib/container.rb to your own app/models
+2) Add your own custom rules. For example, I added the method:
+
+  # it would be nice to eventually move this config to the ActiveRecord model that
+  # acts_as_containable. Maybe something like this
+  # acts_as_containable :only => [:page, :album]
+  # acts_as_containable :except => [:page]
+  # acts_as_containable :except => :all # Can't parent anything; leaf node.
+  # It may default to allow all
+  def can_parent?(record)
+    rules = {
+      :image => [],
+      :attachment => [],
+      :page => [:page, :album, :image, :attachment, :font],
+      :album => [:image, :album],
+      :font => []
+    }
+
+    if record.is_a?(Symbol)
+      class_name = record
+    else # It must be a record
+      class_name = record.class.name.underscore.to_sym
+    end
+
+    if rules.empty?
+      true
+    else
+      rules[containable_type.underscore.to_sym].\
+        include?(class_name)
+    end
+  end
+
+Example
+=======
+
+class MyModel < AR::Base
+	acts_as_containable
+end
+
+class MyModelsController < ApplicationController
+	acts_as_containable
+
+	#Have all actions except destroy and create, unless you want to override them
+end
+
+TODO
+====
+
+* There are no tests, except on my application that uses this plugin, therefore there should be tests built into this, or at least a testing application that is uploaded with this plugin as a submodule.
+
+Copyright (c) 2010 Ramon Tayag, released under the MIT license
