@@ -1,7 +1,7 @@
 ActsAsContainable
 =================
 
-Created for use with "acts_as_ordered_tree":http://github.com/ramontayag/acts_as_ordered_tree where you may need to put different models as elements in that tree. This is the coded solution given "here":http://stackoverflow.com/questions/2142285/acts-as-tree-with-multiple-models
+Created for use with "acts_as_ordered_tree":http://github.com/ramontayag/acts_as_ordered_tree where you may need to put different models as elements in that tree. This is the coded solution given "here":http://stackoverflow.com/questions/2142285/acts-as-tree-with-multiple-models.
 
 
 Installation
@@ -13,12 +13,12 @@ If you want to have more explicit rules as to what can be a parent of what, then
 1) copy vendor/plugins/acts_as_containable/lib/container.rb to your own app/models
 2) Add your own custom rules. For example, I added the method:
 
-  # it would be nice to eventually move this config to the ActiveRecord model that
-  # acts_as_containable. Maybe something like this
-  # acts_as_containable :only => [:page, :album]
-  # acts_as_containable :except => [:page]
-  # acts_as_containable :except => :all # Can't parent anything; leaf node.
-  # It may default to allow all
+  #it would be nice to eventually move this config to the ActiveRecord model that
+  #acts_as_containable. Maybe something like this
+  #acts_as_containable :only => [:page, :album]
+  #acts_as_containable :except => [:page]
+  #acts_as_containable :except => :all # Can't parent anything; leaf node.
+  #It may default to allow all
   def can_parent?(record)
     rules = {
       :image => [],
