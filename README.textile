@@ -14,6 +14,7 @@ If you want to have more explicit rules as to what can be a parent of what, then
 2) Add your own custom rules. For example, I added the method:
 
 <pre>
+<code>
   # it would be nice to eventually move this config to the ActiveRecord model that
   # acts_as_containable. Maybe something like this
   # acts_as_containable :only => [:page, :album]
@@ -42,6 +43,7 @@ If you want to have more explicit rules as to what can be a parent of what, then
         include?(class_name)
     end
   end
+</code>
 </pre>
 
 Example
