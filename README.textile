@@ -9,8 +9,36 @@ ruby script/plugin install http://github.com/ramontayag/acts_as_containable
 
 If you want to have more explicit rules as to what can be a parent of what, then
 
-1) copy vendor/plugins/acts_as_containable/lib/container.rb to your own app/models
-2) Add your own custom rules. For example, I added the method:
+  create_table "containers", :force => true do |t|
+    t.string   "containable_type",                :null => false
+    t.integer  "containable_id",                  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "parent_id",        :default => 0, :null => false
+    t.integer  "position"
+  end
+
+# Make a migration file with this in it (sorry, lazy to make migration generators):
+<pre><code>
+class CreateContainer < ActiveRecord::Migration
+  def self.up
+    create_table "containers", :force => true do |t|
+      t.string   "containable_type",                :null => false
+      t.integer  "containable_id",                  :null => false
+      t.datetime "created_at"
+      t.datetime "updated_at"
+      t.integer  "parent_id",        :default => 0, :null => false
+      t.integer  "position"
+    end
+  end
+
+  def self.down
+    drop_table "containers"
+  end
+end
+</code></pre>
+# copy vendor/plugins/acts_as_containable/lib/container.rb to your own app/models
+# Add your own custom rules. For example, I added the method:
 
 <pre>
 <code>
