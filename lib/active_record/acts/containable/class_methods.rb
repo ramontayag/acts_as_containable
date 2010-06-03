@@ -12,14 +12,9 @@ module ActiveRecord
             include ActiveRecord::Acts::Containable::InstanceMethods
 
             def self.create_in_container(parent_id, attributes = {}) 
-              self.new(attributes).tap do |resource|
-                if resource.save
-                  resource.contain!(parent_id.to_i)
-                else
-                  Rails.logger.error "There was a problem with the resource"
-                end
-                resource
-              end
+              record = self.create(attributes)
+              record.contain!(parent_id.to_i) if record.valid?
+              record
             end    
           EOV
         end
