@@ -6,14 +6,15 @@ module ActionController
           record = klass.create_in_container(params[:parent_id], params[klass.name.downcase.to_sym])
 
           respond_to do |f|
-            if record
+            if record.valid?
               flash[:notice] = "You have just created a new #{klass.name}."
               f.html {redirect_to record}
             else
+              instance_variable_set("@#{klass.name.downcase.singularize}", record)
               f.html {render :new}
             end
           end
-        end      
+        end       
         
         def destroy
           record = klass.send(find_method, params[:id])
