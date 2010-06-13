@@ -65,7 +65,7 @@ module ActionController
 				def find_child_containers
 					record = klass.send(find_method, params[:id])
 					container = record.container
-					@child_containers ||= Container.where(:parent_id => container.id)
+					@child_containers ||= container.children
 				end
 			end
 		end
