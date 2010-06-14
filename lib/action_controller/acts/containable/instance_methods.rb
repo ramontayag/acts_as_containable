@@ -58,7 +58,12 @@ module ActionController
 				end
 
 				def find_method
-					"find_by_#{self.class.acts_as_containable_config.find_by}"
+					find_by_column = self.class.acts_as_containable_config.find_by
+					if find_by_column.to_sym == :id
+						"find"
+					else
+						"find_by_#{find_by_column}"
+					end
 				end
 
 				# Returns the children containers of this record's container.
