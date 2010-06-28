@@ -3,6 +3,9 @@ class Container < ActiveRecord::Base
 	belongs_to :containable, :polymorphic => true
 	before_destroy :destroy_containable
 	default_scope :order => "position"
+  named_scope :of_type, lambda { |type|
+    {:conditions => {:containable_type => type} }
+  }
 
 	private
 
