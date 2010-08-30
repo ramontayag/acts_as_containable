@@ -6,6 +6,7 @@ module ActionController
 					record = klass.create_in_container(params[:parent_id], params[klass.name.downcase.to_sym])
 
 					respond_to do |f|
+						instance_variable_set("@#{klass.name.downcase.singularize}", record)
 						if record.valid?
 							flash_notice = "You have just created a new #{klass.name}."
 							f.html do
@@ -16,7 +17,6 @@ module ActionController
 								flash.now[:notice] = flash_notice
 							end
 						else
-							instance_variable_set("@#{klass.name.downcase.singularize}", record)
 							f.html {render :new}
 						end
 					end
