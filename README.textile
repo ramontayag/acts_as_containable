@@ -1,6 +1,6 @@
 h1. ActsAsContainable
 
-Created for use with "acts_as_ordered_tree":http://github.com/ramontayag/acts_as_ordered_tree where you may need to put different models as elements in that tree. This is the coded solution given "here":http://stackoverflow.com/questions/2142285/acts-as-tree-with-multiple-models.
+Created for use with "ordered_tree":http://github.com/ramontayag/ordered_tree where you may need to put different models as elements in that tree. This is the coded solution given "here":http://stackoverflow.com/questions/2142285/acts-as-tree-with-multiple-models.
 
 
 h2. Installation
